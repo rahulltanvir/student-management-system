@@ -1,5 +1,5 @@
-<?php
-$view="add_session";
+<?php 
+$view="add_student";
 include("template.php");
 
 ?>

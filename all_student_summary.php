@@ -1,4 +1,5 @@
 <?php
-$view="dashboard";
+$view="all_student_summary";
 include("template.php");
+
 ?>
