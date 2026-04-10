@@ -21,6 +21,10 @@
     include("view/section_view.php");
   }elseif($view=="add_session"){
     include("view/session_view.php");
+  }elseif($view=="add_student"){
+    include("view/add_student_view.php");
+  }elseif($view=="all_student_summary"){
+    include("view/all_stud_view.php");
   }
 
  }

@@ -18,18 +18,6 @@
           <td>10</td>
           <td><span class="badge bg-success">Active</span></td>
         </tr>
-        <tr>
-          <td>2</td>
-          <td>Kabir</td>
-          <td>9</td>
-          <td><span class="badge bg-success">Active</span></td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>Hasan</td>
-          <td>8</td>
-          <td><span class="badge bg-danger">Inactive</span></td>
-        </tr>
       </tbody>
     </table>
   </div>

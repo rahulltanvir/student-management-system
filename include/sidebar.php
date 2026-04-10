@@ -4,8 +4,8 @@
     <a href="class.php">Add Class</a>
     <a href="section.php">Add Section</a>
     <a href="session.php">Add Session</a>
-    <a href="#">Add Roll</a>
-    <a href="section.php">Add Student</a>
+    <a href="">Add Roll</a>
+    <a href="add_student.php">Add Student</a>
     <a href="all_student_summary.php">All student Summary</a>
 
 
