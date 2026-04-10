@@ -1,3 +1,11 @@
+<?php
+include("function/function.php");
+$smsObj= new studnet_management();
+
+
+?>
+
+
 <?php include_once("include/head.php")?>
 <body>
 
