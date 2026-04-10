@@ -1,27 +1,19 @@
-  <div class="sidebar">
-    <div>
-      <div class="logo">SMS Dashboard</div>
+<div class="sidebar">
 
-      <ul class="menu">
-        <li><a href="dashboard.php" class="active">Dashboard</a></li>
-        <li><a href="class.php">Class</a></li>
-        <li><a href="section.php">Section</a></li>
-        <li><a href="session.php">Session</a></li>
-        <li><a href="add_student.php">Add Student</a></li>
-        <li><a href="all_student_summary.php">Student Details</a></li>
+    <a href="dashboard.php">Dashboard</a>
+    <a href="#">Add Class</a>
+    <a href="#">Add Section</a>
+    <a href="#">Add Session</a>
+    <a href="#">Add Roll</a>
+    <a href="section.php">Add Student</a>
+    <a href="all_student_summary.php">All student Summary</a>
 
-      </ul>
+
+    <!-- DROPDOWN FIX -->
+    <button class="dropbtn" onclick="toggleMenu()">Admin Role ▼</button>
+
+    <div id="menu" class="dropdown-content">
+        <a href="#">Registration</a>
     </div>
-    <div class="menu-item">
-      <a class="menu-link" href="#" onclick="toggleMenu(event)">
-        <span class="menu-icon"><i class="fa-solid fa-layer-group"></i></span>
-        Admin Role
-        <span class="menu-arrow"><i class="fa-solid fa-angle-down"></i></span>
-      </a>
 
-      <div class="submenu">
-        <a href="add_category.php">Registration</a>
-      </div>
-    </div>
-    <a href="logout.php" class="logout-btn">Logout</a>
-  </div>
+</div>

@@ -1,0 +1,226 @@
+body{
+  background:#f5f6fa;
+}
+
+/* ================= TOPBAR ================= */
+.navbar{
+  background:#0f172a;
+}
+
+/* ================= SIDEBAR ================= */
+.sidebar{
+  width:220px;
+  height:100vh;
+  position:fixed;
+  top:56px;
+  left:0;
+  background:#111827;
+  padding-top:10px;
+}
+
+.sidebar a{
+  display:block;
+  padding:12px 20px;
+  color:#fff;
+  text-decoration:none;
+  transition:0.3s;
+}
+
+.sidebar a:hover{
+  background:#2563eb;
+  padding-left:28px;
+}
+
+/* ================= DROPDOWN FIX ================= */
+.dropbtn{
+  width:100%;
+  padding:12px 20px;
+  background:#111827;
+  border:none;
+  color:#fff;
+  text-align:left;
+  cursor:pointer;
+}
+
+.dropbtn:hover{
+  background:#2563eb;
+}
+
+.dropdown-content{
+  display:none;
+  background:#1f2937;
+}
+
+.dropdown-content a{
+  display:block;
+  padding:10px 35px;
+  color:#fff;
+  text-decoration:none;
+}
+
+.dropdown-content a:hover{
+  background:#374151;
+}
+
+/* ================= CONTENT ================= */
+.content{
+  margin-left:220px;
+  margin-top:70px;
+  padding:20px;
+}
+
+/* ================= CARD ================= */
+.card{
+  border:none;
+  transition:0.3s;
+}
+
+.card:hover{
+  transform:translateY(-5px);
+}
+
+/* ================= TABLE ================= */
+.table-hover tbody tr:hover{
+  background:#eef2ff;
+}
+
+/* ================= BOX ================= */
+.box{
+  background:#fff;
+  padding:20px;
+  border-radius:10px;
+  box-shadow:0 4px 10px rgba(0,0,0,0.05);
+}
+/* login style */
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family: Arial, sans-serif;
+}
+
+/* ================= BACKGROUND ================= */
+.cssbody{
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background: radial-gradient(circle at top, #1e293b, #0f172a);
+  overflow:hidden;
+}
+
+/* glow */
+body::before,
+body::after{
+  content:"";
+  position:absolute;
+  width:320px;
+  height:320px;
+  border-radius:50%;
+  filter:blur(90px);
+  background:rgba(37,99,235,0.3);
+  animation: float 6s infinite alternate;
+}
+
+body::after{
+  bottom:60px;
+  right:60px;
+  background:rgba(16,185,129,0.3);
+}
+
+@keyframes float{
+  from{transform:translateY(0);}
+  to{transform:translateY(30px);}
+}
+
+/* ================= LOGIN BOX (BIGGER) ================= */
+.login-box{
+  width:420px;   /* 👈 bigger */
+  padding:40px;  /* 👈 bigger */
+  border-radius:18px;
+
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(15px);
+  border:1px solid rgba(255,255,255,0.2);
+
+  box-shadow:0 10px 40px rgba(0,0,0,0.4);
+  color:#fff;
+  text-align:center;
+
+  animation: fadeIn 1s ease;
+}
+
+@keyframes fadeIn{
+  from{opacity:0; transform:translateY(-30px);}
+  to{opacity:1; transform:translateY(0);}
+}
+
+/* ================= TITLE CLEAN ================= */
+.login-box h2{
+  margin-bottom:25px;
+  font-size:26px;
+  font-weight:600;
+  letter-spacing:1px;
+  color:#fff;
+}
+
+/* ================= INPUT ================= */
+.input-box{
+  position:relative;
+  margin-bottom:18px;
+}
+
+.input-box input{
+  width:100%;
+  padding:14px 45px;
+  border:none;
+  border-radius:10px;
+  outline:none;
+  background:rgba(255,255,255,0.15);
+  color:#fff;
+  font-size:15px;
+}
+
+.input-box input::placeholder{
+  color:#ddd;
+}
+
+/* icons */
+.input-box span{
+  position:absolute;
+  left:14px;
+  top:50%;
+  transform:translateY(-50%);
+  color:#bbb;
+  font-size:14px;
+}
+
+/* ================= BUTTON ================= */
+button{
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:10px;
+  background:linear-gradient(90deg,#3b82f6,#22c55e);
+  color:#fff;
+  font-size:16px;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+button:hover{
+  transform:scale(1.04);
+  box-shadow:0 6px 20px rgba(59,130,246,0.4);
+}
+
+/* footer */
+.login-box p{
+  margin-top:15px;
+  font-size:13px;
+  color:#ccc;
+}
+
+.login-box a{
+  color:#60a5fa;
+  text-decoration:none;
+}
