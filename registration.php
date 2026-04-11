@@ -1,4 +1,24 @@
-<?php include_once("include/head.php") ?>
+<?php
+session_start();
+include("function/function.php");
+$stdManagementObj= new studnet_management();
+
+if(isset($_POST['registration'])){
+    $result = $stdManagementObj->registration($_POST);
+
+    if($result === true){
+        $_SESSION['success'] = "Registration successful!";
+    } else {
+        $_SESSION['error'] = $result;
+    }
+
+    header("Location:registration.php");
+    exit();
+}
+
+
+?>
+<?php include("include/head.php")?>
 <div class="container">
     <div class="row">
         <div class="col-md-2">
