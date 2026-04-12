@@ -1,8 +1,12 @@
 <?php
 include("function/function.php");
 $smsObj= new studnet_management();
-
-
+session_start();
+if(isset($_GET['adminLogout'])){
+  if($_GET['adminLogout']='logout'){
+    $smsObj->logOut();
+  }
+}
 ?>
 
 

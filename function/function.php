@@ -47,6 +47,7 @@ class studnet_management{
         try{
             $stmt->execute();
             $stmt->close();
+            return true;
         }catch(mysqli_sql_exception $eMsg){
             if($eMsg->getCode() == 1062){
                 return "Email already registered!";
@@ -54,6 +55,45 @@ class studnet_management{
                 return "Something went wrong: " . $eMsg->getMessage();
             }
         }
+    }
+    public function userLogin($data){
+        $email = strtolower(trim($data['email'])); // lowercase + trim
+        $password = $data['std_pass'];
+        if(empty($email) || empty($password)){
+            return "all fields are required!! ";
+        }
+        $stmt=$this->conn->prepare("SELECT * FROM admin_info WHERE ad_email=?");
+        if(!$stmt) return "Database Error!!!";
+
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $result=$stmt->get_result();
+
+        if($result-> num_rows === 0){
+            $stmt->close();
+            return "Email Not Found";
+        }
+        $user=$result->fetch_assoc();
+        if(password_verify($password, $user['ad_pass'])){
+            if(session_status() === PHP_SESSION_NONE){
+                session_start();
+            }
+            session_regenerate_id(true);
+            $_SESSION['user_id']=$user['ad_id'];
+            $_SESSION['user_email']=$user['ad_email'];
+            $stmt->close();
+            return true;
+        }else{
+            $stmt->close();
+            return "Invalid Password";
+        }
+
+    }
+    public function logOut(){
+        unset($_SESSION['user_id']);
+        unset($_SESSION['user_email']);
+        header("location: index.php");
+
     }
 }
 

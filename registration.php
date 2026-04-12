@@ -1,12 +1,12 @@
 <?php
 session_start();
 include("function/function.php");
-$stdManagementObj= new studnet_management();
+$stdManagementObj = new studnet_management();
 
-if(isset($_POST['registration'])){
+if (isset($_POST['registration'])) {
     $result = $stdManagementObj->registration($_POST);
 
-    if($result === true){
+    if ($result === true) {
         $_SESSION['success'] = "Registration successful!";
     } else {
         $_SESSION['error'] = $result;
@@ -18,7 +18,7 @@ if(isset($_POST['registration'])){
 
 
 ?>
-<?php include("include/head.php")?>
+<?php include("include/head.php") ?>
 <div class="container">
     <div class="row">
         <div class="col-md-2">
