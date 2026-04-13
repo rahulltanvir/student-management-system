@@ -1,7 +1,9 @@
 <?php
 session_start();
 include("function/function.php");
+include("function/auth.php");
 $stdManagementObj = new studnet_management();
+
 
 if (isset($_POST['registration'])) {
     $result = $stdManagementObj->registration($_POST);

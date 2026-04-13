@@ -4,9 +4,11 @@
         </div>
         <div class="col-md-8">
             <div class="box">
-                <h5>Add Section</h5>
-                <input class="form-control mb-2" placeholder="add section">
-                <button class="btn btn-success w-100">Submit</button>
+                <form action="" method="post">
+                    <h5>Add Section</h5>
+                    <input class="form-control mb-2" type="text" name="add_section" placeholder="add section">
+                    <button type="submit" name="Add_section_data" class="btn btn-success w-100">Submit</button>
+                </form>
             </div>
         </div>
         <div class="col-md-2">
@@ -33,6 +35,7 @@
                     </thead>
 
                     <tbody>
+                        <?php  ?>
                         <tr>
                             <td>1</td>
                             <td>Rahim </td>
@@ -42,6 +45,7 @@
                             </td>
 
                         </tr>
+                        <?php  ?>
                     </tbody>
                 </table>
             </div>

@@ -1,12 +1,26 @@
+<?php
+if (isset($_POST['add_class_btn'])) {
+    $addClass = $smsObj->addClass($_POST);
+}
+$displayClass=$smsObj->displayClassData();
+
+?>
+
+
 <div class="container">
     <div class="row">
         <div class="col-md-2">
         </div>
         <div class="col-md-8">
             <div class="box">
-                <h5>Add Class</h5>
-                <input class="form-control mb-2" placeholder="add class">
-                <button class="btn btn-success w-100">Submit</button>
+                <form action="" method="post">
+                    <h5>Add Class</h5>
+                    <?php if (isset($addClass)) {
+                        echo $addClass;
+                    } ?>
+                    <input class="form-control mb-2" type="number" name="add_class" placeholder="add class">
+                    <button type="submit" name="add_class_btn" class="btn btn-success w-100">Add Class</button>
+                </form>
             </div>
         </div>
         <div class="col-md-2">
@@ -33,15 +47,17 @@
                     </thead>
 
                     <tbody>
+                        <?php while($addClass_f=mysqli_fetch_assoc($displayClass)){ ?>
                         <tr>
-                            <td>1</td>
-                            <td>Rahim</td>
+                            <td><?php if(isset($addClass_f)){ echo $addClass_f['s_id'] ;} ?></td>
+                            <td><?php if(isset($addClass_f)){ echo $addClass_f['s_class'] ;} ?></td>
                             <td>
                                 <a class="btn btn-info" href="">Edit</a>
                                 <a class="btn btn-danger" href="">Delete</a>
                             </td>
 
                         </tr>
+                        <?php } ?>
                     </tbody>
                 </table>
             </div>
