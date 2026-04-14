@@ -48,6 +48,7 @@
           <th>Section</th>
           <th>Session</th>
           <th>Phone</th>
+          <th>Status</th>
           <th>Action</th>
         </tr>
       </thead>
@@ -55,6 +56,7 @@
       <tbody>
         <tr>
           <td>Rahim</td>
+          <td>10</td>
           <td>10</td>
           <td>10</td>
           <td>10</td>
