@@ -203,5 +203,13 @@ class studnet_management
         }
         return "Section Add Successfuly";
     }
-  
+    public function sessionDisplay(){
+        $stmt=$this->conn->prepare("SELECT * FROM std_session");
+        if(!$stmt){
+            return "Database Error". $this->conn->error;
+        }
+        $stmt->execute();
+        $result=$stmt->get_result();
+        return $result;
+    }
 }
