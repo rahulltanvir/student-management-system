@@ -1,3 +1,10 @@
+<?php 
+if(isset($_POST['Add_section_data'])){
+    $sectionData=$smsObj->addSection($_POST);
+}
+$sectionDisplay=$smsObj->displaySection();
+
+?>
 <div class="container">
     <div class="row">
         <div class="col-md-2">
@@ -6,7 +13,8 @@
             <div class="box">
                 <form action="" method="post">
                     <h5>Add Section</h5>
-                    <input class="form-control mb-2" type="text" name="add_section" placeholder="add section">
+                    <?php if(isset($sectionData)){ echo $sectionData;}?>
+                    <input class="form-control mb-2" type="text" name="add_section" placeholder="add section" required>
                     <button type="submit" name="Add_section_data" class="btn btn-success w-100">Submit</button>
                 </form>
             </div>
@@ -35,17 +43,17 @@
                     </thead>
 
                     <tbody>
-                        <?php  ?>
+                        <?php while($sectionDisplay_f=mysqli_fetch_assoc($sectionDisplay)){ ?>
                         <tr>
-                            <td>1</td>
-                            <td>Rahim </td>
+                            <td><?php echo $sectionDisplay_f['id']; ?></td>
+                            <td><?php echo $sectionDisplay_f['s_section']; ?></td>
                             <td>
                                 <a class="btn btn-info" href="">Edit</a>
                                 <a class="btn btn-danger" href="">Delete</a>
                             </td>
 
                         </tr>
-                        <?php  ?>
+                        <?php } ?>
                     </tbody>
                 </table>
             </div>

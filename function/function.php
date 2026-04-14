@@ -115,7 +115,7 @@ class studnet_management
         $result = $stmt->get_result();
 
         if ($result->num_rows > 0) {
-            return "This class already exists!";
+            return "This $ad_class already exists!";
         }
         $stmt = $this->conn->prepare("INSERT INTO std_class (s_class) VALUES (?)");
         if (!$stmt) {
@@ -141,7 +141,67 @@ class studnet_management
         return $dis_class;
     }
 
-    // public function addSection($data) {
-    //     $add_section=trim($data['add_section'])
-    // }
+    public function addSection($data) {
+        $add_section=trim($data['add_section']);
+        if(empty($data['add_section'])){
+            return "Section are Required";
+        }
+        $stmt=$this->conn->prepare("SELECT id FROM std_section WHERE s_section= ?");
+        $stmt->bind_param("s",  $add_section);
+        $stmt->execute();
+        $result=$stmt->get_result();
+
+        if($result->num_rows > 0){
+            return "This $add_section already exists!";
+        }
+        $stmt = $this->conn->prepare("INSERT INTO std_section (s_section) VALUES (?)");
+        if (!$stmt) {
+            return "Database Error" . $this->conn->error;
+        }
+
+        $stmt->bind_param("s", $add_section);
+        if(!$stmt->execute()){
+            return " Insert Fail". $stmt->error;
+        }
+        return "Section Add Successfuly";
+    }
+
+    public function displaySection(){
+        $stmt=$this->conn->prepare("SELECT * FROM std_section");
+        if(!$stmt){
+            return "Database Error". $this->conn->error;
+        }
+
+        $stmt->execute();
+        $result=$stmt->get_result();
+        return $result;
+    }
+
+    public function addSession($data){
+        $addSession=trim($data['add_session']);
+        if(empty($data['add_session'])){
+            return "Session are Required";
+        }
+
+        $stmt=$this->conn->prepare("SELECT id FROM std_session WHERE s_session=?");
+        $stmt->bind_param("s", $addSession);
+        $stmt->execute();
+        $result=$stmt->get_result();
+
+        if($result->num_rows > 0){
+            return "This $addSession already exists!";
+        }
+
+        $stmt=$this->conn->prepare("INSERT INTO std_session (s_session) VALUES (?)");
+        if(!$stmt){
+            return "Database Error". $this->conn->error;
+        }
+
+        $stmt->bind_param("s", $addSession);
+        if(!$stmt->execute()){
+            return "Insert Fail". $stmt->error;
+        }
+        return "Section Add Successfuly";
+    }
+  
 }
