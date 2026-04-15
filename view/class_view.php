@@ -18,7 +18,7 @@ $displayClass=$smsObj->displayClassData();
                     <?php if (isset($addClass)) {
                         echo $addClass;
                     } ?>
-                    <input class="form-control mb-2" type="number" name="add_class" placeholder="add class" required>
+                    <input class="form-control mb-2" type="text" name="add_class" placeholder="add class" required>
                     <button type="submit" name="add_class_btn" class="btn btn-success w-100">Add Class</button>
                 </form>
             </div>
