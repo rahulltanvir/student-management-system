@@ -4,6 +4,9 @@ if(isset($_GET['id'])){
     $upSectionData=$smsObj->getSection_id($id);
     $upSectionData_f=mysqli_fetch_assoc($upSectionData);
 }
+if(isset($_POST['update_section'])){
+    $upSectionmsg=$smsObj->updateSection($_POST);
+}
 
 
 ?>
@@ -15,11 +18,11 @@ if(isset($_GET['id'])){
             <div class="box">
                 <form action="" method="post">
                     <h5>Update Section</h5>
-                    <?php if(isset($sectionData)){ echo $sectionData;}?>
+                    <?php if(isset($upSectionmsg)){ echo $upSectionmsg;}?>
                     
-                    <input class="form-control mb-2" type="text" name="up_section" value="<?php echo $upSectionData_f['s_section']??''; ?>" required>
+                    <input class="form-control mb-2" type="text" name="up_add_section" value="<?php echo $upSectionData_f['s_section']??''; ?>" required>
                     <input type="hidden" name="section_id" value="<?php echo $upSectionData_f['id']??''; ?>">
-                    <button type="submit" name="up_section" class="btn btn-success w-100">Submit</button>
+                    <button type="submit" name="update_section" class="btn btn-success w-100">Submit</button>
                 </form>
             </div>
         </div>

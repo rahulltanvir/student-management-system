@@ -333,24 +333,33 @@ class studnet_management
 
     public function updateSection($data){
         $id=$data['section_id'];
-        $upsection=trim($data['up_section']);
+        $upSection=trim($data['up_add_section']);
 
-        if(empty($upsection)){
+        if(empty($upSection)){
             return "Field empty!";
         }
 
-        $stmt=$this->conn->prepare("SELECT id FROM std_section WHERE s_section=?");
+        $stmt=$this->conn->prepare("SELECT id FROM std_section WHERE s_section = ?");
         if(!$stmt){
             return "Databese Error". $this->conn->error;
         }
 
-        $stmt->bind_param("s" , $upsection);
+        $stmt->bind_param("s" , $upSection);
         $stmt->execute();
         $result=$stmt->get_result();
 
         if($result->num_rows >0){
-            return "This $upsection already exists!";
+            return "This $upSection already exists!";
         }
 
+        $stmt=$this->conn->prepare("UPDATE std_section SET s_section=? WHERE id=?");
+        if(!$stmt){
+            return "database fail". $this->conn->error;
+        }
+        $stmt->bind_param("si", $upSection,$id );
+        if(!$stmt->execute()){
+            return "Insert Fail";
+        }
+        return "Updated Successfully";
     }
 }
