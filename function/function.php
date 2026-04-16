@@ -285,4 +285,72 @@ class studnet_management
         $stmt->execute();
         return $stmt->get_result();
     }
+
+    public function getClass_id($id)
+    {
+        $stmt = $this->conn->prepare("SELECT * FROM std_class WHERE s_id=?");
+
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+
+        return $stmt->get_result();
+    }
+    public function updateClass($data)
+    {
+        $id = $data['class_id'];
+        $class = trim($data['up_add_class']);
+
+        if (empty($class)) {
+            return "Field empty!";
+        }
+        $stmt = $this->conn->prepare("SELECT s_id FROM std_class WHERE s_class = ?");
+        $stmt->bind_param("s", $class);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            return "This $class already exists!";
+        }
+
+
+        $stmt = $this->conn->prepare("UPDATE std_class SET s_class=? WHERE s_id=?");
+        $stmt->bind_param("si", $class, $id);
+
+        if (!$stmt->execute()) {
+            return "Insert Fail" . $stmt->error;
+        }
+        return "Updated Successfully";
+    }
+
+    public function getSection_id($id){
+        $stmt=$this->conn->prepare("SELECT * FROM std_section WHERE id=?");
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $result=$stmt->get_result();
+        return $result;
+
+    }
+
+    public function updateSection($data){
+        $id=$data['section_id'];
+        $upsection=trim($data['up_section']);
+
+        if(empty($upsection)){
+            return "Field empty!";
+        }
+
+        $stmt=$this->conn->prepare("SELECT id FROM std_section WHERE s_section=?");
+        if(!$stmt){
+            return "Databese Error". $this->conn->error;
+        }
+
+        $stmt->bind_param("s" , $upsection);
+        $stmt->execute();
+        $result=$stmt->get_result();
+
+        if($result->num_rows >0){
+            return "This $upsection already exists!";
+        }
+
+    }
 }

@@ -114,8 +114,8 @@ body::before,
 body::after{
   content:"";
   position:absolute;
-  width:320px;
-  height:320px;
+  width:100px;
+  height:100px;
   border-radius:50%;
   filter:blur(90px);
   background:rgba(37,99,235,0.3);

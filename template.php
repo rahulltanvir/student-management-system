@@ -40,6 +40,10 @@ if(isset($_GET['adminLogout'])){
     include("view/add_student_view.php");
   }elseif($view=="all_student_summary"){
     include("view/all_stud_view.php");
+  }elseif($view=="up_class"){
+    include("view/up_class_view.php");
+  }elseif($view=="up_section"){
+    include("view/up_section_view.php");
   }
 
  }

@@ -40,7 +40,7 @@ $displayClass=$smsObj->displayClassData();
                     <thead class="table-dark ">
                         <tr>
                             <th class="col-md-2">ID</th>
-                            <th class="col-md-7">Section</th>
+                            <th class="col-md-7">Class</th>
                             <th class="col-md-3">Action</th>
 
                         </tr>
@@ -52,7 +52,7 @@ $displayClass=$smsObj->displayClassData();
                             <td><?php if(isset($addClass_f)){ echo $addClass_f['s_id'] ;} ?></td>
                             <td><?php if(isset($addClass_f)){ echo $addClass_f['s_class'] ;} ?></td>
                             <td>
-                                <a class="btn btn-info" href="">Edit</a>
+                                <a class="btn btn-info" href="up_class.php?id=<?php echo $addClass_f['s_id'];?>">Edit</a>
                                 <a class="btn btn-danger" href="">Delete</a>
                             </td>
 

@@ -39,7 +39,7 @@ $sessiondata=$smsObj->sessionDisplay();
                     <thead class="table-dark ">
                         <tr>
                             <th class="col-md-2">ID</th>
-                            <th class="col-md-7">Section</th>
+                            <th class="col-md-7">Session</th>
                             <th class="col-md-3">Action</th>
 
                         </tr>
