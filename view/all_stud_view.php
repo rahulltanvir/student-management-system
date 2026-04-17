@@ -33,7 +33,7 @@
           <td><?php echo $dis_all_data_f['std_phone'] ?></td>
           <td><span class="badge bg-success"><?php echo $dis_all_data_f['std_status'] ?></span></td>
           <td>
-            <a href="" class="btn btn-info">Edit</a>
+            <a href="update_student.php?status=edit&id=<?php echo $dis_all_data_f['id'] ?>" class="btn btn-info">Edit</a>
             <a href="" class="btn btn-danger">Delete</a>
           </td>
           

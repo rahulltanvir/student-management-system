@@ -266,6 +266,7 @@ class studnet_management
     {
         $stmt = $this->conn->prepare("
         SELECT 
+            students.id,
             students.std_name,
             students.std_roll,
             std_class.s_class,
@@ -322,71 +323,124 @@ class studnet_management
         return "Updated Successfully";
     }
 
-    public function getSection_id($id){
-        $stmt=$this->conn->prepare("SELECT * FROM std_section WHERE id=?");
+    public function getSection_id($id)
+    {
+        $stmt = $this->conn->prepare("SELECT * FROM std_section WHERE id=?");
         $stmt->bind_param("i", $id);
         $stmt->execute();
-        $result=$stmt->get_result();
+        $result = $stmt->get_result();
         return $result;
-
     }
 
-    public function updateSection($data){
-        $id=$data['section_id'];
-        $upSection=trim($data['up_add_section']);
+    public function updateSection($data)
+    {
+        $id = $data['section_id'];
+        $upSection = trim($data['up_add_section']);
 
-        if(empty($upSection)){
+        if (empty($upSection)) {
             return "Field empty!";
         }
 
-        $stmt=$this->conn->prepare("SELECT id FROM std_section WHERE s_section = ?");
-        if(!$stmt){
-            return "Databese Error". $this->conn->error;
+        $stmt = $this->conn->prepare("SELECT id FROM std_section WHERE s_section = ?");
+        if (!$stmt) {
+            return "Databese Error" . $this->conn->error;
         }
 
-        $stmt->bind_param("s" , $upSection);
+        $stmt->bind_param("s", $upSection);
         $stmt->execute();
-        $result=$stmt->get_result();
+        $result = $stmt->get_result();
 
-        if($result->num_rows >0){
+        if ($result->num_rows > 0) {
             return "This $upSection already exists!";
         }
 
-        $stmt=$this->conn->prepare("UPDATE std_section SET s_section=? WHERE id=?");
-        if(!$stmt){
-            return "database fail". $this->conn->error;
+        $stmt = $this->conn->prepare("UPDATE std_section SET s_section=? WHERE id=?");
+        if (!$stmt) {
+            return "database fail" . $this->conn->error;
         }
-        $stmt->bind_param("si", $upSection,$id );
-        if(!$stmt->execute()){
-            return "Insert Fail";
+        $stmt->bind_param("si", $upSection, $id);
+        if (!$stmt->execute()) {
+            return "Insert Fail" . $stmt->error;
         }
         return "Updated Successfully";
     }
 
-    public function getSession_id($id){
-        $stmt=$this->conn->prepare("SELECT * FROM std_session WHERE id=?");
-        if(!$stmt){
-            return "Database Error". $this->conn->error;
+    public function getSession_id($id)
+    {
+        $stmt = $this->conn->prepare("SELECT * FROM std_session WHERE id=?");
+        if (!$stmt) {
+            return "Database Error" . $this->conn->error;
         }
         $stmt->bind_param("i", $id);
         $stmt->execute();
-        $result=$stmt->get_result();
+        $result = $stmt->get_result();
         return $result;
-
     }
-    public function updateSession($data){
-        $upId=$data['session_id'];
-        $upsession=trim($data['up_session']);
+    public function updateSession($data)
+    {
+        $id = $data['session_id'];
+        $upsession = trim($data['up_session']);
 
-        if(empty($upsession)){
+        if (empty($upsession)) {
             return "Field empty!";
         }
 
-        $stmt=$this->conn->prepare("SELECT id FROM std_session WHERE s_session=?");
-        if(!$stmt){
-            return "database Error". $this->conn->error;
+        $stmt = $this->conn->prepare("SELECT id FROM std_session WHERE s_session=? ");
+        if (!$stmt) {
+            return "database Error" . $this->conn->error;
         }
         $stmt->bind_param("s", $upsession);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($result->num_rows > 0) {
+            return "This $upsession already exists!";
+        }
 
+        $stmt = $this->conn->prepare("UPDATE std_session SET s_session=? WHERE id=? ");
+        if (!$stmt) {
+            return "Database Fail" . $this->conn->error;
+        }
+        $stmt->bind_param("si", $upsession, $id);
+        if (!$stmt->execute()) {
+            return "insert Fail" . $stmt->error;
+        }
+        return "Update Session successfully";
+    }
+    public function getStudentById($id)
+    {
+        $stmt = $this->conn->prepare("
+        SELECT 
+            students.id,
+            students.std_name,
+            students.std_roll,
+            students.std_phone,
+            students.std_status,
+            students.std_class,
+            students.std_section,
+            students.std_session,
+
+            std_class.s_class,
+            std_section.s_section,
+            std_session.s_session
+
+        FROM students
+
+        INNER JOIN std_class 
+            ON students.std_class = std_class.s_id
+
+        INNER JOIN std_section 
+            ON students.std_section = std_section.id
+
+        INNER JOIN std_session 
+            ON students.std_session = std_session.id
+
+        WHERE students.id = ?
+    ");
+
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+
+        $result = $stmt->get_result();
+        return $result->fetch_assoc();
     }
 }

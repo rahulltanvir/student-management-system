@@ -6,8 +6,8 @@ if(isset($_GET['status'])){
         $upSession_data_f=mysqli_fetch_assoc($upSession_data);
     }
 }
-if(isset($_POST['submit'])){
-    
+if(isset($_POST['up_session_btn'])){
+    $upSessionmsg=$smsObj->updateSession($_POST);
 }
 
 ?>
@@ -19,7 +19,7 @@ if(isset($_POST['submit'])){
         <div class="col-md-8">
             <div class="box">
                 <h5>Update Session</h5>
-                <?php if(isset( $sessionData)){ echo  $sessionData; } ?>
+                <?php if(isset($upSessionmsg)){ echo $upSessionmsg; } ?>
                 <form action="" method="post">
                     <input type="" class="form-control mb-2" name="up_session" value="<?php echo $upSession_data_f['s_session'] ?>" required>
                     <input type="hidden" class="form-control mb-2" name="session_id" value="<?php echo $upSession_data_f['id'] ?>" required>

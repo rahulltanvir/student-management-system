@@ -48,7 +48,7 @@ $sectionDisplay=$smsObj->displaySection();
                             <td><?php echo $sectionDisplay_f['id']; ?></td>
                             <td><?php echo $sectionDisplay_f['s_section']; ?></td>
                             <td>
-                                <a class="btn btn-info" href="up_section.php?status&&id=<?php echo $sectionDisplay_f['id']; ?>">Edit</a>
+                                <a class="btn btn-info" href="up_section.php?status=edit&id=<?php echo $sectionDisplay_f['id']; ?>">Edit</a>
                                 <a class="btn btn-danger" href="">Delete</a>
                             </td>
 

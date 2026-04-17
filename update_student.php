@@ -1,5 +1,5 @@
 <?php
-$view="Up_student";
+$view="up_student";
 include("template.php");
 
 

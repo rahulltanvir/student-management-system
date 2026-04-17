@@ -46,6 +46,8 @@ if(isset($_GET['adminLogout'])){
     include("view/up_section_view.php");
   }elseif($view=="up_session"){
     include("view/up_session_view.php");
+  }elseif($view=="up_student"){
+    include("view/update_students_view.php");
   }
 
  }
