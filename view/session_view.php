@@ -51,7 +51,7 @@ $sessiondata=$smsObj->sessionDisplay();
                             <td><?php echo $sessiondata_f['id'] ;?></td>
                             <td><?php echo $sessiondata_f['s_session'] ;?></td>
                             <td>
-                                <a class="btn btn-info" href="">Edit</a>
+                                <a class="btn btn-info" href="up_session.php?status&&id=<?php echo $sessiondata_f['id'] ;?>">Edit</a>
                                 <a class="btn btn-danger" href="">Delete</a>
                             </td>
 

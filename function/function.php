@@ -362,4 +362,31 @@ class studnet_management
         }
         return "Updated Successfully";
     }
+
+    public function getSession_id($id){
+        $stmt=$this->conn->prepare("SELECT * FROM std_session WHERE id=?");
+        if(!$stmt){
+            return "Database Error". $this->conn->error;
+        }
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $result=$stmt->get_result();
+        return $result;
+
+    }
+    public function updateSession($data){
+        $upId=$data['session_id'];
+        $upsession=trim($data['up_session']);
+
+        if(empty($upsession)){
+            return "Field empty!";
+        }
+
+        $stmt=$this->conn->prepare("SELECT id FROM std_session WHERE s_session=?");
+        if(!$stmt){
+            return "database Error". $this->conn->error;
+        }
+        $stmt->bind_param("s", $upsession);
+
+    }
 }

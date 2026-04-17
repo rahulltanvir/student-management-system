@@ -1,8 +1,12 @@
 <?php
-if (isset($_GET['id'])) {
-    $id = $_GET['id'];
-    $classData = $smsObj->getClass_id($id);
-    $class = mysqli_fetch_assoc($classData);
+
+
+if(isset($_GET['status'])){
+    if($_GET['status']='edit'){
+        $getId=$_GET['id'];
+        $classData=$smsObj->getClass_id($getId);
+        $class=mysqli_fetch_assoc($classData);
+    }
 }
 if (isset($_POST['up_class_btn'])) {
     $updateMsg = $smsObj->updateClass($_POST);

@@ -1,8 +1,11 @@
 <?php 
-if(isset($_GET['id'])){
-    $id=$_GET['id'];
-    $upSectionData=$smsObj->getSection_id($id);
-    $upSectionData_f=mysqli_fetch_assoc($upSectionData);
+
+if(isset($_GET['status'])){
+    if($_GET['status']='edit'){
+        $getId=$_GET['id'];
+        $upSectionData=$smsObj->getSection_id($getId);
+        $upSectionData_f=mysqli_fetch_assoc($upSectionData);
+    }
 }
 if(isset($_POST['update_section'])){
     $upSectionmsg=$smsObj->updateSection($_POST);
