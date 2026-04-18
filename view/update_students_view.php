@@ -9,6 +9,16 @@ if (isset($_GET['status'])) {
     $allSession = $smsObj->sessionDisplay();
   }
 }
+if (isset($_POST['submit'])) {
+
+    $update = $smsObj->updateStudentData($_POST);
+
+    if ($update === "Updated Successfully") {
+        $_SESSION['success'] = "Student Updated Successfully!";
+        header("Location: all_student_summary.php");
+        exit();
+    }
+}
 ?>
 
 
@@ -85,6 +95,7 @@ if (isset($_GET['status'])) {
             </option>
 
           </select>
+          <input type="hidden" name="student_id" value="<?php echo $student['id']; ?>">
 
           <button type="Up_submit" class="btn btn-success w-100" name="submit">Submit</button>
         </form>
@@ -134,3 +145,19 @@ if (isset($_GET['status'])) {
     </div>
   </div> -->
 </div>
+<?php if (isset($_SESSION['success'])) { ?>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<script>
+swal({
+    title: "Good job!",
+    text: "<?= $_SESSION['success']; ?>",
+    icon: "success",
+    button: "OK",
+}).then(() => {
+    window.location = "all_student_summary.php";
+});
+</script>
+
+<?php unset($_SESSION['success']); } ?>

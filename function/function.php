@@ -446,4 +446,65 @@ class studnet_management
         $result = $stmt->get_result();
         return $result->fetch_assoc();
     }
+
+    public function updateStudentData($data)
+    {
+        $id = $data['student_id'];
+
+        $name    = trim($data['std_name']);
+        $roll    = trim($data['std_roll']);
+        $class   = $data['up_std_class'];
+        $section = $data['up_std_section'];
+        $session = $data['up_std_session'];
+        $phone   = trim($data['up_std_phn']);
+        $status  = $data['up_std_status'];
+
+        if (empty($name) || empty($roll)) {
+            return "Required fields missing!";
+        }
+
+        $stmt = $this->conn->prepare("
+        UPDATE students 
+        SET std_name=?, std_roll=?, std_class=?, std_section=?, std_session=?, std_phone=?, std_status=? 
+        WHERE id=?
+    ");
+
+        if (!$stmt) {
+            return "Database Error " . $this->conn->error;
+        }
+
+        $stmt->bind_param(
+            "ssiiissi",
+            $name,
+            $roll,
+            $class,
+            $section,
+            $session,
+            $phone,
+            $status,
+            $id
+        );
+
+        if (!$stmt->execute()) {
+            return "Update Failed " . $stmt->error;
+        }
+
+        return "Updated Successfully";
+    }
+    public function deleteClass($id)
+{
+    $stmt = $this->conn->prepare("DELETE FROM std_class WHERE s_id = ?");
+    
+    if (!$stmt) {
+        return "Database Error: " . $this->conn->error;
+    }
+
+    $stmt->bind_param("i", $id);
+
+    if ($stmt->execute()) {
+        return "Deleted Successfully";
+    } else {
+        return "Delete Failed: " . $stmt->error;
+    }
+}
 }

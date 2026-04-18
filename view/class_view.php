@@ -5,19 +5,37 @@
 // $displayClass=$smsObj->displayClassData();
 
 // 
-if (isset($_POST['add_class_btn'])) {
-    $addClass = $smsObj->addClass($_POST);
+if (isset($_POST['submit'])) {
 
-    if ($addClass === "success") {
-        $_SESSION['success'] = "Class Added Successfully!";
-        header("Location:class.php");
+    $update = $smsObj->updateStudentData($_POST);
+
+    if ($update === "Updated Successfully") {
+        $_SESSION['success'] = "Student Updated Successfully!";
+        $_SESSION['type']="success";
+        header("Location: update_student.php?status=edit&id=" . $_POST['student_id']);
         exit();
     }
 }
 
 $displayClass = $smsObj->displayClassData();
 
+if (isset($_GET['status']) && $_GET['status'] == 'delete') {
 
+    $id = $_GET['id'];
+
+    $result = $smsObj->deleteClass($id);
+
+    if ($result === "Deleted Successfully") {
+        $_SESSION['success'] = "Class Deleted Successfully!";
+        $_SESSION['type'] = "delete";
+    } else {
+        $_SESSION['success'] = $result;
+        $_SESSION['type'] = "error";
+    }
+
+    header("Location: class.php");
+    exit();
+}
 ?>
 
 
@@ -69,7 +87,7 @@ $displayClass = $smsObj->displayClassData();
                             <td><?php if(isset($addClass_f)){ echo $addClass_f['s_class'] ;} ?></td>
                             <td>
                                 <a class="btn btn-info" href="up_class.php?status=edit&id=<?php echo $addClass_f['s_id'];?>">Edit</a>
-                                <a class="btn btn-danger" href="">Delete</a>
+                                <a class="btn btn-danger" href="?status=delete&id=<?php echo $addClass_f['s_id'];?>">Delete</a>
                             </td>
 
                         </tr>
@@ -82,19 +100,42 @@ $displayClass = $smsObj->displayClassData();
         </div>
     </div>
 </div>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
 <?php if (isset($_SESSION['success'])) { ?>
 
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 <script>
+
+let type = "<?= $_SESSION['type'] ?? 'success' ?>";
+
+let title = "Good job!";
+let icon = "success";
+
+if(type === "delete"){
+    title = "Deleted!";
+    icon = "warning";
+}
+else if(type === "error"){
+    title = "Error!";
+    icon = "error";
+}
+else if(type === "update"){
+    title = "Updated!";
+    icon = "success";
+}
+
 swal({
-    title: "Good job!",
+    title: title,
     text: "<?= $_SESSION['success']; ?>",
-    icon: "success",
+    icon: icon,
     button: "OK",
 }).then(() => {
     window.location = "class.php";
 });
+
 </script>
 
-<?php unset($_SESSION['success']); } ?>
+<?php 
+unset($_SESSION['success']);
+unset($_SESSION['type']);
+} ?>
