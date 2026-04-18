@@ -1,10 +1,13 @@
   <?php
   
+
+
   $dis_all_data=$smsObj->dipalyStudent();
   
   
   ?>
-  
+
+
   <div class="box">
     <h5>Student List</h5>
 
@@ -42,3 +45,19 @@
       </tbody>
     </table>
   </div>
+
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<?php if(isset($_SESSION['success'])) { ?>
+
+<script>
+swal({
+    title: "Good job!",
+    text: "<?= $_SESSION['success']; ?>",
+    icon: "success",
+    button: "OK",
+});
+</script>
+
+<?php unset($_SESSION['success']); } ?>

@@ -1,7 +1,16 @@
 <?php 
-    if(isset($_POST['add_session_btn'])){
-        $sessionData=$smsObj->addSession($_POST);
+    // if(isset($_POST['add_session_btn'])){
+    //     $sessionData=$smsObj->addSession($_POST);
+    // }
+    if (isset($_POST['Add_section_data'])) {
+    $sessionData = $smsObj->addSession($_POST);
+
+    if ( $sessionData === "success") {
+        $_SESSION['success'] = "Class Added Successfully!";
+        header("Location:session.php");
+        exit();
     }
+}
 $sessiondata=$smsObj->sessionDisplay();
 
 
@@ -65,3 +74,18 @@ $sessiondata=$smsObj->sessionDisplay();
         </div>
     </div>
 </div>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<?php if (isset($_SESSION['success'])) { ?>
+
+<script>
+swal({
+    title: "Good job!",
+    text: "<?= $_SESSION['success']; ?>",
+    icon: "success",
+    button: "OK",
+}).then(() => {
+    window.location = "session.php";
+});
+</script>
+
+<?php unset($_SESSION['success']); } ?>

@@ -1,14 +1,14 @@
 <?php
+if (isset($_GET['status'])) {
+  if ($_GET['status'] = 'edit') {
+    $id = $_GET['id'];
+    $student = $smsObj->getStudentById($id);
 
-if(isset($_GET['status'])){
-  if($_GET['status']='edit'){
-    $id =$_GET['id'];
-    $student=$smsObj->getStudentById($id);
-    
+    $allClass = $smsObj->displayClassData();
+    $allSection = $smsObj->displaySection();
+    $allSession = $smsObj->sessionDisplay();
   }
 }
-
-
 ?>
 
 
@@ -21,38 +21,72 @@ if(isset($_GET['status'])){
       <div class="box">
         <form action="" method="post">
           <h5>Add Student</h5>
-          <?php if(isset($st_add)){ echo $st_add; } ?>
+          <?php if (isset($st_add)) {
+            echo $st_add;
+          } ?>
           <label for="std_name">Name:</label>
-          <input class="form-control mb-2" name="std_name" id="std_name" value="<?php echo $allStdData_f['std_name']; ?>" required>
+          <input class="form-control mb-2" name="std_name" id="up_std_name" value="<?php echo $student['std_name']; ?>" required>
           <label for="std_roll">Roll:</label>
-          <input class="form-control mb-2" name="std_roll" id="std_roll" value="<?php echo $allStdData_f['std_roll']; ?>" required>
+          <input class="form-control mb-2" name="std_roll" id="up_std_roll" value="<?php echo $student['std_roll']; ?>" required>
+
           <label for="std_class">Class:</label>
-          <select name="std_class" id="std_class" class="form-control mb-2" required>
-            <?php while ($allStdData_f) { ?>
-              <option value="<?php echo $allStdData_f['s_id'] ?>"><?php echo $allStdData_f['s_class']; ?></option>
+          <select name="up_std_class" class="form-control mb-2">
+            <?php while ($clasData = mysqli_fetch_assoc($allClass)) { ?>
+              <option value="<?php echo $clasData['s_id']; ?>"
+                <?php if ($clasData['s_id'] == $student['std_class']) echo 'selected'; ?>>
+                <?php echo $clasData['s_class']; ?>
+              </option>
+
             <?php } ?>
-          </select>
-          <label for="section">Section:</label>
-          <select name="std_section" id="section" class="form-control mb-2" required>
-            <?php while ($allStdData_f) { ?>
-              <option value="<?php echo $allStdData_f['id'] ?>"><?php echo $allStdData_f['s_section']; ?></option>
-            <?php } ?>
-          </select>
-          <label for="session">Session:</label>
-          <select name="std_session" id="session" class="form-control mb-2" required>
-            <?php while ($allStdData_f) { ?>
-              <option value="<?php echo  $allStdData_f['id'] ?>">$allStdData_f</option>
-            <?php } ?>
-          </select>
-          <label for="phone">Phone Number:</label>
-          <input type="text" name="std_phn" id="phone" class="form-control mb-2"  value="<?php echo $allStdData_f['s_section']; ?>">
-          <label for="Status">Status:</label>
-          <select name="std_status" id="section" class="form-control mb-2" required>
-            <option value="<?php echo $allStdData_f['std_status']; ?>">Active</option>
-            <option value="<?php echo $allStdData_f['std_status']; ?>">Inactive</option>
+
           </select>
 
-          <button type="submit" class="btn btn-success w-100" name="submit">Submit</button>
+          <label for="section">Section:</label>
+          <select name="up_std_section" class="form-control mb-2">
+
+            <?php while ($secData = mysqli_fetch_assoc($allSection)) { ?>
+
+              <option value="<?php echo $secData['id']; ?>"
+                <?php if ($secData['id'] == $student['std_section']) echo 'selected'; ?>>
+                <?php echo $secData['s_section']; ?>
+              </option>
+
+            <?php } ?>
+
+          </select>
+
+
+          <label for="session">Session:</label>
+          <select name="up_std_session" class="form-control mb-2">
+
+            <?php while ($sessionData = mysqli_fetch_assoc($allSession)) { ?>
+
+              <option value="<?php echo $sessionData['id']; ?>"
+                <?php if ($sessionData['id'] == $student['std_session']) echo 'selected'; ?>>
+                <?php echo $sessionData['s_session']; ?>
+              </option>
+
+            <?php } ?>
+
+          </select>
+
+          <label for="phone">Phone Number:</label>
+          <input type="text" name="up_std_phn" id="phone" class="form-control mb-2" value="<?php echo $student['std_phone']; ?>">
+
+          <label for="Status">Status:</label>
+          <select name="up_std_status" class="form-control mb-2">
+
+            <option value="Active" <?php if ($student['std_status'] == 'Active') echo 'selected'; ?>>
+              Active
+            </option>
+
+            <option value="Inactive" <?php if ($student['std_status'] == 'Inactive') echo 'selected'; ?>>
+              Inactive
+            </option>
+
+          </select>
+
+          <button type="Up_submit" class="btn btn-success w-100" name="submit">Submit</button>
         </form>
       </div>
     </div>

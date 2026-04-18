@@ -3,11 +3,37 @@
 $displayClass = $smsObj->displayClassData();
 $sectionDisplay = $smsObj->displaySection();
 $sessiondata = $smsObj->sessionDisplay();
+// if (isset($_POST['submit'])) {
+//     $st_add=$smsObj->addStudent($_POST);
+// }
 if (isset($_POST['submit'])) {
-    $st_add=$smsObj->addStudent($_POST);
+
+    $result = $smsObj->addStudent($_POST);
+
+    if ($result === "Add Student Successfully") {
+
+        $_SESSION['success'] = "Student Added Successfully";
+
+        header("Location: all_student_summary.php");
+        exit();
+
+    } else {
+
+        $_SESSION['error'] = $result;
+
+        header("Location: add_student.php");
+        exit();
+    }
 }
 
 
+
+?>
+<?php
+if (isset($_SESSION['error'])) {
+    echo "<div class='alert alert-danger'>".$_SESSION['error']."</div>";
+    unset($_SESSION['error']);
+}
 ?>
 
 

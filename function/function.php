@@ -1,4 +1,7 @@
 <?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 class studnet_management
 {
     private $conn;
@@ -82,9 +85,9 @@ class studnet_management
         }
         $user = $result->fetch_assoc();
         if (password_verify($password, $user['ad_pass'])) {
-            if (session_status() === PHP_SESSION_NONE) {
-                session_start();
-            }
+            // if (session_status() === PHP_SESSION_NONE) {
+            //     session_start();
+            // }
             session_regenerate_id(true);
             $_SESSION['user_id'] = $user['ad_id'];
             $_SESSION['user_email'] = $user['ad_email'];
@@ -127,12 +130,12 @@ class studnet_management
         if (!$stmt->execute()) {
             return "Insert Fail" . $stmt->error;
         }
-        return "Class Add Successfuly";
+        return "success";
     }
     // display class
     public function displayClassData()
     {
-        $stmt = $this->conn->prepare("SELECT * FROM std_class");
+        $stmt = $this->conn->prepare("SELECT * FROM std_class ORDER BY s_id ASC");
         if (!$stmt) {
             return "database Erorr" . $this->conn->error;
         }
@@ -153,7 +156,7 @@ class studnet_management
         $result = $stmt->get_result();
 
         if ($result->num_rows > 0) {
-            return "This $add_section already exists!";
+            return "exists!";
         }
         $stmt = $this->conn->prepare("INSERT INTO std_section (s_section) VALUES (?)");
         if (!$stmt) {
@@ -164,7 +167,7 @@ class studnet_management
         if (!$stmt->execute()) {
             return " Insert Fail" . $stmt->error;
         }
-        return "Section Add Successfuly";
+        return "success";
     }
     // display section
     public function displaySection()
@@ -204,7 +207,7 @@ class studnet_management
         if (!$stmt->execute()) {
             return "Insert Fail" . $stmt->error;
         }
-        return "Section Add Successfuly";
+        return "success";
     }
     // display session
     public function sessionDisplay()

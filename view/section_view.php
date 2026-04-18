@@ -1,6 +1,15 @@
 <?php 
-if(isset($_POST['Add_section_data'])){
-    $sectionData=$smsObj->addSection($_POST);
+// if(isset($_POST['Add_section_data'])){
+//     $sectionData=$smsObj->addSection($_POST);
+// }
+if (isset($_POST['Add_section_data'])) {
+    $sectionData = $smsObj->addSection($_POST);
+
+    if ( $sectionData === "success") {
+        $_SESSION['success'] = "Class Added Successfully!";
+        header("Location:section.php");
+        exit();
+    }
 }
 $sectionDisplay=$smsObj->displaySection();
 
@@ -62,3 +71,18 @@ $sectionDisplay=$smsObj->displaySection();
         </div>
     </div>
 </div>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<?php if (isset($_SESSION['success'])) { ?>
+
+<script>
+swal({
+    title: "Good job!",
+    text: "<?= $_SESSION['success']; ?>",
+    icon: "success",
+    button: "OK",
+}).then(() => {
+    window.location = "section.php";
+});
+</script>
+
+<?php unset($_SESSION['success']); } ?>

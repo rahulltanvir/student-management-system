@@ -1,8 +1,22 @@
 <?php
+// if (isset($_POST['add_class_btn'])) {
+//     $addClass = $smsObj->addClass($_POST);
+// }
+// $displayClass=$smsObj->displayClassData();
+
+// 
 if (isset($_POST['add_class_btn'])) {
     $addClass = $smsObj->addClass($_POST);
+
+    if ($addClass === "success") {
+        $_SESSION['success'] = "Class Added Successfully!";
+        header("Location:class.php");
+        exit();
+    }
 }
-$displayClass=$smsObj->displayClassData();
+
+$displayClass = $smsObj->displayClassData();
+
 
 ?>
 
@@ -39,7 +53,8 @@ $displayClass=$smsObj->displayClassData();
                 <table class="table table-hover mt-3  w-100 text-center">
                     <thead class="table-dark ">
                         <tr>
-                            <th class="col-md-2">ID</th>
+                            
+                            <th class="col-md-2">SL</th>
                             <th class="col-md-7">Class</th>
                             <th class="col-md-3">Action</th>
 
@@ -47,9 +62,10 @@ $displayClass=$smsObj->displayClassData();
                     </thead>
 
                     <tbody>
-                        <?php while($addClass_f=mysqli_fetch_assoc($displayClass)){ ?>
+                        <?php $i=1; while($addClass_f=mysqli_fetch_assoc($displayClass)){ ?>
                         <tr>
-                            <td><?php if(isset($addClass_f)){ echo $addClass_f['s_id'] ;} ?></td>
+                            
+                            <td><?php echo $i++; ?></td>
                             <td><?php if(isset($addClass_f)){ echo $addClass_f['s_class'] ;} ?></td>
                             <td>
                                 <a class="btn btn-info" href="up_class.php?status=edit&id=<?php echo $addClass_f['s_id'];?>">Edit</a>
@@ -66,3 +82,19 @@ $displayClass=$smsObj->displayClassData();
         </div>
     </div>
 </div>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<?php if (isset($_SESSION['success'])) { ?>
+
+<script>
+swal({
+    title: "Good job!",
+    text: "<?= $_SESSION['success']; ?>",
+    icon: "success",
+    button: "OK",
+}).then(() => {
+    window.location = "class.php";
+});
+</script>
+
+<?php unset($_SESSION['success']); } ?>
