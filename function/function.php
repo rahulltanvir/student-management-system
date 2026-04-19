@@ -492,19 +492,32 @@ class studnet_management
         return "Updated Successfully";
     }
     public function deleteClass($id)
-{
-    $stmt = $this->conn->prepare("DELETE FROM std_class WHERE s_id = ?");
-    
-    if (!$stmt) {
-        return "Database Error: " . $this->conn->error;
-    }
+    {
+        $stmt = $this->conn->prepare("DELETE FROM std_class WHERE s_id = ?");
 
-    $stmt->bind_param("i", $id);
+        if (!$stmt) {
+            return "Database Error: " . $this->conn->error;
+        }
 
-    if ($stmt->execute()) {
-        return "Deleted Successfully";
-    } else {
-        return "Delete Failed: " . $stmt->error;
+        $stmt->bind_param("i", $id);
+
+        if ($stmt->execute()) {
+            return "Deleted Successfully";
+        } else {
+            return "Delete Failed: " . $stmt->error;
+        }
     }
-}
+    public function deleteSection($id){
+        $stmt=$this->conn->prepare("DELETE FROM std_section WHERE id=?");
+        if(!$stmt){
+            return "Database Error". $this->conn->error;
+        }
+
+        $stmt->bind_param("i", $id);
+        if($stmt->execute()){
+            return "Deleted Successfully";
+        }else{
+            return "Delete Fail!!". $stmt->error;
+        }
+    }
 }
