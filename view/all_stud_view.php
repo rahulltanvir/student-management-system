@@ -1,9 +1,16 @@
   <?php
-  
-
-
   $dis_all_data=$smsObj->dipalyStudent();
-  
+  if(isset($_GET['status']) && $_GET['status']=='delete'){
+    $id=$_GET['id'];
+    $deleStudentData=$smsObj->deleteStudent($id);
+    if($deleStudentData==="Deleted Successfully"){
+      $_SESSION['success']="Section Deleted Successfully!";
+      $_SESSION['type']="delete";
+    }else{
+      $_SESSION['success']=$deleStudentData;
+      $_SESSION['error']='error';
+    }
+  }
   
   ?>
 
@@ -37,7 +44,12 @@
           <td><span class="badge bg-success"><?php echo $dis_all_data_f['std_status'] ?></span></td>
           <td>
             <a href="update_student.php?status=edit&id=<?php echo $dis_all_data_f['id'] ?>" class="btn btn-info">Edit</a>
-            <a href="" class="btn btn-danger">Delete</a>
+            <a
+                                        class="btn btn-danger"
+                                        href="?status=delete&id=<?php echo $dis_all_data_f['id'] ?>"
+                                        onclick="return confirmDelete(event, this.href)">
+                                        Delete
+                                    </a>
           </td>
           
         </tr>
@@ -45,19 +57,4 @@
       </tbody>
     </table>
   </div>
-
-
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
-<?php if(isset($_SESSION['success'])) { ?>
-
-<script>
-swal({
-    title: "Good job!",
-    text: "<?= $_SESSION['success']; ?>",
-    icon: "success",
-    button: "OK",
-});
-</script>
-
-<?php unset($_SESSION['success']); } ?>
+<?php include_once("include/sweet_alart.php"); ?>

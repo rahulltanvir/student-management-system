@@ -87,7 +87,12 @@ if (isset($_GET['status']) && $_GET['status'] == 'delete') {
                             <td><?php if(isset($addClass_f)){ echo $addClass_f['s_class'] ;} ?></td>
                             <td>
                                 <a class="btn btn-info" href="up_class.php?status=edit&id=<?php echo $addClass_f['s_id'];?>">Edit</a>
-                                <a class="btn btn-danger" href="?status=delete&id=<?php echo $addClass_f['s_id'];?>">Delete</a>
+                                <a
+                                        class="btn btn-danger"
+                                        href="?status=delete&id=<?php echo $addClass_f['s_id']; ?>"
+                                        onclick="return confirmDelete(event, this.href)">
+                                        Delete
+                                    </a>
                             </td>
 
                         </tr>
@@ -100,42 +105,4 @@ if (isset($_GET['status']) && $_GET['status'] == 'delete') {
         </div>
     </div>
 </div>
-<?php if (isset($_SESSION['success'])) { ?>
-
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
-<script>
-
-let type = "<?= $_SESSION['type'] ?? 'success' ?>";
-
-let title = "Good job!";
-let icon = "success";
-
-if(type === "delete"){
-    title = "Deleted!";
-    icon = "warning";
-}
-else if(type === "error"){
-    title = "Error!";
-    icon = "error";
-}
-else if(type === "update"){
-    title = "Updated!";
-    icon = "success";
-}
-
-swal({
-    title: title,
-    text: "<?= $_SESSION['success']; ?>",
-    icon: icon,
-    button: "OK",
-}).then(() => {
-    window.location = "class.php";
-});
-
-</script>
-
-<?php 
-unset($_SESSION['success']);
-unset($_SESSION['type']);
-} ?>
+<?php include_once("include/sweet_alart.php") ;?>

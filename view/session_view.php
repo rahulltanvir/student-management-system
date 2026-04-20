@@ -1,7 +1,4 @@
 <?php 
-    // if(isset($_POST['add_session_btn'])){
-    //     $sessionData=$smsObj->addSession($_POST);
-    // }
     if (isset($_POST['Add_section_data'])) {
     $sessionData = $smsObj->addSession($_POST);
 
@@ -13,6 +10,19 @@
 }
 $sessiondata=$smsObj->sessionDisplay();
 
+if(isset($_GET['status']) && $_GET['status']=='delete'){
+    $id=$_GET['id'];
+    $deleSessionData=$smsObj->deletesession($id);
+    if($deleSessionData==='Deleted Successfully'){
+        $_SESSION['success']="Session Added Successfully!";
+        $_SESSION['type']="delete";
+    }else{
+        $_SESSION['success']=$deleSessionData;
+        $_SESSION['error']='error';
+    }
+    header("location: session.php");
+    exit();
+}
 
 
 ?>
@@ -61,7 +71,12 @@ $sessiondata=$smsObj->sessionDisplay();
                             <td><?php echo $sessiondata_f['s_session'] ;?></td>
                             <td>
                                 <a class="btn btn-info" href="up_session.php?status=edit&id=<?php echo $sessiondata_f['id'] ;?>">Edit</a>
-                                <a class="btn btn-danger" href="">Delete</a>
+                                 <a
+                                        class="btn btn-danger"
+                                        href="?status=delete&id=<?php echo $sessiondata_f['id'] ;?>"
+                                        onclick="return confirmDelete(event, this.href)">
+                                        Delete
+                                    </a>
                             </td>
 
                         </tr>
@@ -74,53 +89,4 @@ $sessiondata=$smsObj->sessionDisplay();
         </div>
     </div>
 </div>
-<?php if (isset($_SESSION['success'])) { ?>
-
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
-    <script>
-        let type = "<?= $_SESSION['type'] ?? 'success' ?>";
-
-        let title = "Good job!";
-        let icon = "success";
-
-        if (type === "delete") {
-            title = "Deleted!";
-            icon = "warning";
-        } else if (type === "error") {
-            title = "Error!";
-            icon = "error";
-        } else if (type === "update") {
-            title = "Updated!";
-            icon = "success";
-        }
-
-        swal({
-            title: title,
-            text: "<?= $_SESSION['success']; ?>",
-            icon: icon,
-            button: "OK",
-        }).then(() => {
-            window.location = "section.php";
-        });
-        function confirmDelete(event, url){
-    event.preventDefault(); // link থামায়
-
-    swal({
-        title: "Are you sure?",
-        text: "You want to delete this section!",
-        icon: "warning",
-        buttons: true,
-        dangerMode: true,
-    })
-    .then((willDelete) => {
-        if (willDelete) {
-            window.location.href = url; // delete run
-        }
-    });}
-    </script>
-
-<?php
-    unset($_SESSION['success']);
-    unset($_SESSION['type']);
-} ?>
+<?php include_once("include/sweet_alart.php"); ?>

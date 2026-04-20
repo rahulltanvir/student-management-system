@@ -529,7 +529,19 @@ class studnet_management
         if($stmt->execute()){
             return "Deleted Successfully";
         }else{
-            return "Database Error". $stmt->error;
+            return "Delete Fail!!". $stmt->error;
+        }
+    }
+    public function deleteStudent($id){
+        $stmt=$this->conn->prepare("DELETE students WHERE id=?");
+        if(!$stmt){
+            return "Database Error". $this->conn->error;
+        }
+        $stmt->bind_param("i", $id);
+        if($stmt->execute()){
+            return "Deleted Successfully";
+        }else{
+            return "Delete Fail!!". $stmt->error;
         }
     }
 }
