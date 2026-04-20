@@ -520,4 +520,16 @@ class studnet_management
             return "Delete Fail!!". $stmt->error;
         }
     }
+    public function deletesession($id){
+        $stmt=$this->conn->prepare("DELETE std_session WHERE id=?");
+        if(!$stmt){
+            return "Database Error". $this->conn->error;
+        }
+        $stmt->bind_param("i", $id);
+        if($stmt->execute()){
+            return "Deleted Successfully";
+        }else{
+            return "Database Error". $stmt->error;
+        }
+    }
 }

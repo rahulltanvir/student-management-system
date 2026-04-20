@@ -74,18 +74,53 @@ $sessiondata=$smsObj->sessionDisplay();
         </div>
     </div>
 </div>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <?php if (isset($_SESSION['success'])) { ?>
 
-<script>
-swal({
-    title: "Good job!",
-    text: "<?= $_SESSION['success']; ?>",
-    icon: "success",
-    button: "OK",
-}).then(() => {
-    window.location = "session.php";
-});
-</script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
-<?php unset($_SESSION['success']); } ?>
+    <script>
+        let type = "<?= $_SESSION['type'] ?? 'success' ?>";
+
+        let title = "Good job!";
+        let icon = "success";
+
+        if (type === "delete") {
+            title = "Deleted!";
+            icon = "warning";
+        } else if (type === "error") {
+            title = "Error!";
+            icon = "error";
+        } else if (type === "update") {
+            title = "Updated!";
+            icon = "success";
+        }
+
+        swal({
+            title: title,
+            text: "<?= $_SESSION['success']; ?>",
+            icon: icon,
+            button: "OK",
+        }).then(() => {
+            window.location = "section.php";
+        });
+        function confirmDelete(event, url){
+    event.preventDefault(); // link থামায়
+
+    swal({
+        title: "Are you sure?",
+        text: "You want to delete this section!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+    })
+    .then((willDelete) => {
+        if (willDelete) {
+            window.location.href = url; // delete run
+        }
+    });}
+    </script>
+
+<?php
+    unset($_SESSION['success']);
+    unset($_SESSION['type']);
+} ?>
