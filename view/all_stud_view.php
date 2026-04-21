@@ -1,5 +1,6 @@
   <?php
   $dis_all_data=$smsObj->dipalyStudent();
+
   if(isset($_GET['status']) && $_GET['status']=='delete'){
     $id=$_GET['id'];
     $deleStudentData=$smsObj->deleteStudent($id);
@@ -10,6 +11,8 @@
       $_SESSION['success']=$deleStudentData;
       $_SESSION['error']='error';
     }
+    // header("location: all_student_summary.php");
+    // exit();
   }
   
   ?>
@@ -46,7 +49,7 @@
             <a href="update_student.php?status=edit&id=<?php echo $dis_all_data_f['id'] ?>" class="btn btn-info">Edit</a>
             <a
                                         class="btn btn-danger"
-                                        href="?status=delete&id=<?php echo $dis_all_data_f['id'] ?>"
+                                        href="?status=delete&id=<?php echo $dis_all_data_f['id']; ?>"
                                         onclick="return confirmDelete(event, this.href)">
                                         Delete
                                     </a>
@@ -57,4 +60,53 @@
       </tbody>
     </table>
   </div>
-<?php include_once("include/sweet_alart.php"); ?>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+ <script>
+// 🔴 DELETE CONFIRM
+function confirmDelete(event, url){
+    event.preventDefault();
+
+    swal({
+        title: "Are you sure?",
+        text: "You want to delete this section!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+    })
+    .then((willDelete) => {
+        if (willDelete) {
+            window.location.href = url;
+        }
+    });
+}
+</script>
+<?php if (isset($_SESSION['success'])) { ?>
+<script>
+let type = "<?= $_SESSION['type'] ?? 'success' ?>";
+
+let title = "Success!";
+let icon = "success";
+
+if (type === "delete") {
+    title = "Deleted!";
+    icon = "warning";
+} else if (type === "error") {
+    title = "Error!";
+    icon = "error";
+}
+
+swal({
+    title: title,
+    text: "<?= $_SESSION['success']; ?>",
+    icon: icon,
+    button: "OK",
+}).then(() => {
+    window.location = "all_student_summary.php";
+});
+</script>
+
+<?php
+unset($_SESSION['success']);
+unset($_SESSION['type']);
+} ?>  

@@ -533,7 +533,7 @@ class studnet_management
         }
     }
     public function deleteStudent($id){
-        $stmt=$this->conn->prepare("DELETE students WHERE id=?");
+        $stmt=$this->conn->prepare("DELETE FROM students WHERE id=?");
         if(!$stmt){
             return "Database Error". $this->conn->error;
         }
@@ -543,5 +543,39 @@ class studnet_management
         }else{
             return "Delete Fail!!". $stmt->error;
         }
+    }
+    public function totalStudent(){
+        $stmt=$this->conn->prepare("SELECT COUNT(*) as total FROM students");
+        if(!$stmt){
+            return "Database Error". $this->conn->error;
+        }
+        $stmt->execute();
+        $result=$stmt->get_result();
+        $allStudent=$result->fetch_assoc();
+        return $allStudent;
+    }
+    public function activeStudent(){
+        $stmt=$this->conn->prepare("SELECT COUNT(*) as total FROM students WHERE std_status=?");
+        if(!$stmt){
+            return "Database Error". $this->conn->error;
+        }
+        $status="active";
+        $stmt->bind_param("s",$status);
+        $stmt->execute();
+        $result=$stmt->get_result();
+        $allStudent=$result->fetch_assoc();
+        return $allStudent;
+    }
+    public function inactiveStudent(){
+        $stmt=$this->conn->prepare("SELECT COUNT(*) as total FROM students WHERE std_status=?");
+        if(!$stmt){
+            return "Database Error". $this->conn->error;
+        }
+        $status="inactive";
+        $stmt->bind_param("s",$status);
+        $stmt->execute();
+        $result=$stmt->get_result();
+        $allStudent=$result->fetch_assoc();
+        return $allStudent;
     }
 }
